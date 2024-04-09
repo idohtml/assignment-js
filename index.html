@@ -1,4 +1,4 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -9,6 +9,7 @@
       body {
         height: 100vh;
         display: flex;
+        flex-direction: column;
         align-items: center;
         background: linear-gradient(to top left, #ea9a28, #f5f263);
       }
@@ -24,7 +25,41 @@
     </style>
   </head>
   <body>
-    <div id="root"></div>
+    <h1>Task Manager</h1>
+    <div class="userName__display">
+      <input type="text" class="userName" placeholder="Enter your name" />
+      <button onclick="askUserName()">Enter</button>
+    </div>
+
+    <h2 class="welcomeUser"></h2>
+
+    <div id="taskManager" style="display: none">
+      <div>
+        <input
+          type="text"
+          id="taskDescription"
+          placeholder="Task Description"
+        />
+        <button onclick="addTask()">Add Task</button>
+      </div>
+
+      <div>
+        <input
+          type="number"
+          id="completeTaskId"
+          placeholder="Complete Task ID"
+        />
+        <button onclick="completeTask()">Complete Task</button>
+      </div>
+
+      <div>
+        <button onclick="listAllTasks()">List All Tasks</button>
+        <button onclick="listCompletedTasks()">List Completed Tasks</button>
+      </div>
+
+      <div id="taskList"></div>
+    </div>
+
     <script src="script.js"></script>
   </body>
 </html>
