@@ -1,3 +1,6 @@
+// Global variable
+let userName;
+
 // TASK MANAGER
 
 // taskManager object
@@ -27,36 +30,45 @@ const taskManager = {
   // Lists all completed tasks
   listCompletedTasks: function () {
     this.tasks.forEach((index) => {
-      if (task.status === true) {
-        console.log(index.task);
+      if (index.status === true) {
+        console.log(`"${index.task}" is now complete`);
+      } else {
+        console.log("You have not completed any tasks yet..");
       }
     });
   },
 };
 
-// Adding new tasks to the taskManager object manually
-taskManager.addTask(1, "Hello, World", false);
-taskManager.addTask(2, "Eat Kebab", false);
-taskManager.addTask(3, "delete me", false);
+// Testing purposes
 
-// Sets the status value to true
-taskManager.isComplete(3, true);
+// // Add tasks
+// taskManager.addTask(0, "Hello, World", false);
+// taskManager.addTask(1, "Sell bike", false);
+// taskManager.addTask(2, "Buy schampooo", false);
 
-// list all tasks
-taskManager.listAllTasks();
+// taskManager.listAllTasks();
 
-// list all completed tasks
-taskManager.listCompletedTasks();
+// // Set status to true
+// taskManager.isComplete(0, true);
+// taskManager.isComplete(1, true);
 
-console.log(taskManager.listCompletedTasks());
+// taskManager.listCompletedTasks();
 
 // function for asking the user to fill in their name
 function askUserName() {
   // add logic here to as the user to enter their name
-  alert(
-    "This is the alert() function which dispays some text for the user.\n" +
-      "Unlike the prompt(), the alert() does not take any input.\nUse it only to display messages for the user."
-  );
+  // do-while will prompt the user untill they have entered a valid username
+  do {
+    userName = prompt("Please enter your username");
+    /* 
+    While the field is empty, 
+    not a number and has a length that isn't less than 3. 
+    We are good to go. 
+    */
+  } while (!userName || !isNaN(userName) || userName.length < 3);
+
+  console.log(`Username set to: ${userName}`);
+
   menu();
 }
 
@@ -64,13 +76,57 @@ function askUserName() {
 function menu() {
   const choice = parseInt(
     prompt(
-      "Hello, this is a the prompt function that displays an input and some text.\n" +
-        "We use parseInt() to make sure that we can take an int as a input from the user.\n" +
-        "By default the prompt() function takes all input as strings."
-    )
+      `Welcome to the task manager ${userName}!. Please select an option:\n
+      1. Add task\n
+      2. Add complete\n
+      3. List all tasks\n
+      4. List all completed tasks\n
+      5. Exit
+      `
+    ),
+    10
   );
-  // add some more3 logic here
-  // choose between if/else or switch
+
+  switch (choice) {
+    case 1:
+      // Add a new task
+      let task = prompt("Enter a task:");
+      let id = taskManager.tasks.length;
+
+      taskManager.addTask(id, task, false);
+      console.log("New task added successfully");
+      break;
+
+    // Marks a specific task as complete
+    case 2:
+      id = parseInt(
+        prompt("Enter the ID of the task you want to mark as completed:"),
+        10
+      );
+      taskManager.isComplete(id, true);
+      break;
+
+    // Lists all tasks available
+    case 3:
+      taskManager.listAllTasks();
+      break;
+
+    // Lists all completed tasks
+    case 4:
+      taskManager.listCompletedTasks();
+      break;
+
+    // Exits the task manager
+    case 5:
+      console.log("Exiting task manager");
+      return;
+
+    default:
+      console.log("Invalid option, please try again.");
+      break;
+  }
+
+  menu();
 }
 
 // starts with the function asUserName() which triggers the menu() function
