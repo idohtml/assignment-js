@@ -1,7 +1,7 @@
+// TASK MANAGER
+
 // Global variable
 let userName;
-
-// TASK MANAGER
 
 // taskManager object
 const taskManager = {
@@ -14,7 +14,7 @@ const taskManager = {
     this.tasks.push(newTask);
   },
 
-  // Completes a specific task
+  // Completes a specific task based on ID
   isComplete: function (id) {
     const index = this.tasks.findIndex((task) => task.id === id);
     if (index !== -1) {
@@ -39,21 +39,6 @@ const taskManager = {
   },
 };
 
-// Testing purposes
-
-// // Add tasks
-// taskManager.addTask(0, "Hello, World", false);
-// taskManager.addTask(1, "Sell bike", false);
-// taskManager.addTask(2, "Buy schampooo", false);
-
-// taskManager.listAllTasks();
-
-// // Set status to true
-// taskManager.isComplete(0, true);
-// taskManager.isComplete(1, true);
-
-// taskManager.listCompletedTasks();
-
 // function for asking the user to fill in their name
 function askUserName() {
   // add logic here to as the user to enter their name
@@ -74,6 +59,8 @@ function askUserName() {
 
 // menu function
 function menu() {
+  let id;
+
   const choice = parseInt(
     prompt(
       `Welcome to the task manager ${userName}!. Please select an option:\n
@@ -91,7 +78,7 @@ function menu() {
     case 1:
       // Add a new task
       let task = prompt("Enter a task:");
-      let id = taskManager.tasks.length;
+      id = taskManager.tasks.length;
 
       taskManager.addTask(id, task, false);
       console.log("New task added successfully");
@@ -103,7 +90,7 @@ function menu() {
         prompt("Enter the ID of the task you want to mark as completed:"),
         10
       );
-      taskManager.isComplete(id, true);
+      taskManager.isComplete(id);
       break;
 
     // Lists all tasks available
