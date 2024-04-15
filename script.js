@@ -15,10 +15,10 @@ const taskManager = {
   },
 
   // Completes a specific task
-  isComplete: function (id, status) {
+  isComplete: function (id) {
     const index = this.tasks.findIndex((task) => task.id === id);
     if (index !== -1) {
-      this.tasks[index].status = status;
+      this.tasks[index].status = true;
     }
   },
 
